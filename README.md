@@ -7,7 +7,8 @@ A python scipt that helps me get coronavirus statics on the command line.Cause g
 Download the corona python file and make it an executable :
 
 ```
-
+git clone https://github.com/Anindra123/CorPy.git
+cd CorPy
 chmod u+x corona
 
 ```
