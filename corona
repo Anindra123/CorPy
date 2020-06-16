@@ -1,0 +1,51 @@
+#!/usr/bin/python
+import requests
+import argparse
+
+parser = argparse.ArgumentParser()
+
+#passing arguments that we need
+parser.add_argument("all",action="store_true",help="Showing worldwide data")
+parser.add_argument("-c","--country",help="Showing Data based on a given country")
+
+args = parser.parse_args()
+
+#Checking if the arguments are valid
+if args.all:
+
+    #A get request for getting data
+    r = requests.get('https://disease.sh/v2/all')
+else:
+    r = requests.get('https://disease.sh/v2/all')
+if args.country:
+    Country = args.country
+    r = requests.get('https://disease.sh/v2/countries/'+Country)
+
+
+#Checking the status code
+if(r.ok):
+    #Converting the json data to a python dictonary
+    r_dict = r.json()
+else:
+    r_dict = r.json()
+    print(r_dict['message'])
+
+#Getting necessary data from the dictonary
+cases = r_dict['cases']
+today_cases = r_dict['todayCases']
+deaths = r_dict['deaths']
+today_deaths = r_dict['todayDeaths']
+recovered = r_dict['recovered']
+
+
+
+
+#Printing the data
+if args.country:
+    print('Country : ' + r_dict['country'])
+print('Total Cases : ' + str(format(cases,',d')) )
+print('Cases Today : ' + str(format(today_cases,',d')))
+print('Total Deaths : ' + str(format(deaths,',d')) )
+print('Deaths Today : ' + str(format(today_deaths,',d')))
+print('Total Recovered : ' + str(format(recovered,',d')) )
+
